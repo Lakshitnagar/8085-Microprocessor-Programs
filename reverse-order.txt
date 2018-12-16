@@ -1,0 +1,13 @@
+LXI SP, 0003H	;loop counter
+LXI H, 6009H	;last address
+LXI B, 6010H	;storage address
+
+move:MOV A, M; load the data byte stored in memory location pointed by HL pair ;to A
+STAX B
+
+INX B
+DCX H
+DCX SP
+JNZ move
+
+HLT

@@ -1,0 +1,51 @@
+MVI A, 4H   ;A←4H
+STA 6000H   ;6000H←A
+
+MVI A, 2H  ;A←2H
+STA 6001H   ;6001H←A
+
+MVI A, 3H   ;A←3H
+STA 6002H   ;6002H←A
+
+MVI A, 4H  ;A←4H
+STA 6003H   ;6003H←A
+
+;;;;
+
+MVI A, 2H   ;A←2H
+STA 6008H   ;6008H←A
+
+MVI A, 1H  ;A←1H
+STA 6009H   ;6009H←A
+
+MVI A, 1H   ;A←1H
+STA 600AH   ;600AH←A
+
+MVI A, 1H  ;A←1H
+STA 600BH   ;600BH←A
+
+LXI B,6000H
+LXI H,6008H
+LXI D,6010H
+LDAX B ;first byte - no carry in
+ADD M
+STAX D
+INX B; point to next byte
+INX D
+INX H
+LDAX B ;second byte - carry in
+ADC M ;note the ADC instead of ADD
+STAX D
+INX B; point to next byte
+INX D
+INX H
+LDAX B ;third byte - carry in
+ADC M
+STAX D
+INX B; point to next byte
+INX D
+INX H
+LDAX B ;fourth - carry in
+ADC M
+STAX D
+HLT

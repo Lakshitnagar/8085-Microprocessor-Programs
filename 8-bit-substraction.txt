@@ -1,0 +1,38 @@
+MVI	C, 00	;[C] <- 00
+
+MVI A, 4H   ;A←3H
+STA C000H   ;C000H←A
+
+MVI A, 3H  ;A←4H
+STA C001H   ;C001H←A
+
+LHLD C000H	;H←C001, L←C000
+MOV	A, H	;[A] <- [H]
+SUB	L	;[A] <- [A] – [L]
+JNC	RESULT	;Jump If no borrow
+INR	C	;[C] <- [C] + 1
+RESULT:STA	C002H	;[A] -> [C002], Result
+MOV	A, C	;[A] <- [C]
+STA	C003H	;[A] -> [C003], Borrow
+HLT
+
+;ABSOLUTE DIFFERENCE
+MVI	C, 00	;[C] <- 00
+
+MVI A, 8H   ;A←8H
+STA C000H   ;C000H←A
+
+MVI A, 5H  ;A←5H
+STA C001H   ;C001H←A
+
+LHLD C000H	;H←C001, L←C000
+MOV	A, H	;[A] <- [H]
+SUB	L	;[A] <- [A] – [L]
+JNC	RESULT	;Jump If no borrow
+CMA ;complement A
+INR A ;[A] <- [A] + 1
+INR	C	;[C] <- [C] + 1
+RESULT:STA	C002H	;[A] -> [C002], Result
+MOV	A, C	;[A] <- [C]
+STA	C003H	;[A] -> [C003], Borrow
+HLT
